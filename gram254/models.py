@@ -70,3 +70,18 @@ class Image(models.Model):
     def acquire_all_images(cls):
         images = Image.objects.all()
         return images
+
+class Comment(models.Model):
+
+    comment = HTMLField(null=True, blank=True)
+    post_date = models.DateTimeField(auto_now=True)
+    image = models.ForeignKey(Image, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def save_comment(self):
+        self.save()
+
+    @classmethod
+    def acquire_image_comments(cls, id):
+        comments = Comment.objects.filter(image__pk=id)
+        return comments
