@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from django.db import models
 from pyuploadcare.dj.models import ImageField
 from tinymce.models import HTMLField
@@ -38,6 +37,7 @@ class Profile(models.Model):
         profile = Profile.objects.filter(user=id).first()
         return profile
 
+
 class Image(models.Model):
     
     photo = ImageField(null=True, blank=True)
@@ -70,6 +70,7 @@ class Image(models.Model):
     def acquire_all_images(cls):
         images = Image.objects.all()
         return images
+
 
 class Comment(models.Model):
 
