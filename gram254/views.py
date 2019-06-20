@@ -62,3 +62,18 @@ def profile(request, username):
     title = f'@{profile.username} Instagram profile'
 
     return render(request, 'profile/profile.html', {'title': title, 'profile': profile, 'profile-details': profile_details, 'image': image, 'photos': photos})
+
+@login_required(login_url='/accounts/login/')
+def profile_edit(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            edit = form.save(commit=False)
+            edit.user = request.user
+            edit.save()
+            return redirect('profile_edit')
+
+    else:
+        form = ProfileForm()
+
+    return render(request, 'profile/profile_edit.html', {'form': form})
