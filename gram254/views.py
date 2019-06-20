@@ -46,3 +46,19 @@ def confirm(request, uidb64, token):
 
     else:
         return HttpResponse('Invalid')
+
+
+def profile(request, username):
+    profile = User.objects.get(username=username)
+
+    try:
+        profile_details = Profile.acquire_by_id(profile.id)
+    except:
+        profile_details = Profile.filter_by_id(profile.id)
+
+    image = Image.acquire_profile_image(profile.id)
+
+    photos = Image.objects.filter(profile=profile)
+    title = f'@{profile.username} Instagram profile'
+
+    return render(request, 'profile/profile.html', {'title': title, 'profile': profile, 'profile-details': profile_details, 'image': image, 'photos': photos})
