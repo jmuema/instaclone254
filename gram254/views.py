@@ -106,3 +106,20 @@ def solo_image(request, image_id):
     else:
        form = CommentForm()
     return render(request, 'pic.html', {'image': image, 'form': form, 'comment': comment})
+
+@login_required(login_url='/accounts/login/')
+def pic_upload(request):
+    """
+    Function for uploading of images to a profile once the user has been authenticated
+    """
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            upload = form.save(commit=False)
+            upload.profile = request.user
+            upload.save()
+            return redirect('profile', username=request.user)
+    else:
+        form = ImageForm()
+
+    return render(request, 'profile/pic_upload.html', {'form': form})
