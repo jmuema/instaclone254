@@ -13,3 +13,6 @@ urlpatterns = [
     url(r'^image/(?P<image_id>\d+)', views.solo_image, name='solo_image'),
     url(r'^accounts/edit/', views.profile_edit, name='profile_edit'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
