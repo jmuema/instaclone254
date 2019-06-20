@@ -1,15 +1,26 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .models import Image, Profile, Comment
+from django.contrib.auth.models import User
+from .forms import SignupForm, ProfileForm, CommentForm, ImageForm
+from django.contrib.sites.shortcuts import get_current_site
+from django.http import HttpResponse
+from .email import activation_email
+from django.contrib.auth import login
+from django.utils.encoding import force_text
+from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.decorators import login_required
+from .token import account_activation_token
 
 # Create your views here.
+
 
 @login_required(login_url='/accounts/login/')
 def index(request):
     images = Image.acquire_all_images()
 
     return render(request, 'home.html', {'images': images})
+
 
 def registration(request):
     if request.user.is_authenticated():
@@ -28,6 +39,7 @@ def registration(request):
         else:
             form = SignupForm()
         return render(request, 'registration/registration_form.html', {'form': form})
+
 
 def confirm(request, uidb64, token):
     try:
@@ -63,6 +75,7 @@ def profile(request, username):
 
     return render(request, 'profile/profile.html', {'title': title, 'profile': profile, 'profile-details': profile_details, 'image': image, 'photos': photos})
 
+
 @login_required(login_url='/accounts/login/')
 def profile_edit(request):
     if request.method == 'POST':
@@ -78,6 +91,7 @@ def profile_edit(request):
 
     return render(request, 'profile/profile_edit.html', {'form': form})
 
+
 def profile_search(request):
     if 'search' in request.GET and request.GET['search']:
         search_term = request.GET.get('search')
@@ -88,6 +102,7 @@ def profile_search(request):
     else:
         message = 'Enter search term'
     return render(request, 'search.html', {'message': message})
+
 
 @login_required(login_url='/accounts/login/')
 def solo_image(request, image_id):
@@ -106,6 +121,7 @@ def solo_image(request, image_id):
     else:
        form = CommentForm()
     return render(request, 'pic.html', {'image': image, 'form': form, 'comment': comment})
+
 
 @login_required(login_url='/accounts/login/')
 def pic_upload(request):
