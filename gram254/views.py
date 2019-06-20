@@ -77,3 +77,14 @@ def profile_edit(request):
         form = ProfileForm()
 
     return render(request, 'profile/profile_edit.html', {'form': form})
+
+def profile_search(request):
+    if 'search' in request.GET and request.GET['search']:
+        search_term = request.GET.get('search')
+        profile = Profile.profile_search(search_term)
+        message = f'{search_term}'
+
+        return render(request, 'search.html', {'message': message, 'profile': profile})
+    else:
+        message = 'Enter search term'
+    return render(request, 'search.html', {'message': message})
