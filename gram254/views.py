@@ -88,3 +88,21 @@ def profile_search(request):
     else:
         message = 'Enter search term'
     return render(request, 'search.html', {'message': message})
+
+@login_required(login_url='/accounts/login/')
+def solo_image(request, image_id):
+    image = Image.acquire_image_id(image_id)
+    comment = Comment.acquire_image_comments(image_id)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.image = image
+            comment.user = request.user
+            comment.save()
+            return redirect('solo_image', image_id=image_id)
+
+    else:
+       form = CommentForm()
+    return render(request, 'pic.html', {'image': image, 'form': form, 'comment': comment})
