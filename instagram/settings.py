@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECRET_KEY = '6!z%ryl09h=5$f-vv-=by@xzmqtws_lo8y3&uhm!v*x$1wjyf8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-ODE=config("MODE", default="dev")
+MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 # development
@@ -109,14 +109,14 @@ WSGI_APPLICATION = 'instagram.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'insta',
-        'USER': 'joseph',
-        'PASSWORD': '25MuemA25',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'insta',
+#         'USER': 'joseph',
+#         'PASSWORD': '25MuemA25',
+#     }
+# }
 
 
 # Password validation
