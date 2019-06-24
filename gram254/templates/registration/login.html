@@ -1,7 +1,7 @@
 {% extends "registration/base.html" %}
 {% load bootstrap4 %}
 {% block content %}
-<div class="container">
+<div class="container" style="background-color:#fff;">
     <div class="row sign-in">
         <!------Empty div------->
         <div class="col-md-4"></div>
@@ -9,6 +9,7 @@
             {% if form.errors %}
             <p> Password or Username is Incorrect </p>
             {% endif %}
+            <img class="thumbnail" src="{% static 'photos/insta.jpg' %}" style="height:400px;width:450px;">
             <div class="card card-registration">
                 <div class="card-details">
                     <h1 class="text-center"> Instagram </h1>
@@ -31,5 +32,40 @@
         <!-------Empty div------->
         <div class="col-md-4"></div>
     </div>
+    <div class="col-md-6">
+        <div class="card mt-5" style="width: 28rem;">
+          <div class="card-body text-center">
+            <h5 class="card-title">Get the app.</h5>
+            <a href="https://itunes.apple.com/ke/app/instagram/id389801252?mt=8"><img src="{% static 'photos/appstore.png' %}"
+                style="height:70px;width:200px;"></a>
+            <a href="https://play.google.com/store?hl=en"><img src="{% static 'photos/playstore.png' %}" style="height:70px;width:200px;"></a>
+          </div>
+  
+        </div>
+      </div>
+      <div class="container">
+        <div class="col-md-12">
+          <div class="footer text-center">
+            <ul id="footer1">
+              <li>ABOUT US</li>
+              <li>SUPPORT</li>
+              <li>PRESS</li>
+              <li>API</li>
+              <li>JOBS</li>
+              <li>PRIVACY</li>
+              <li>TERMS</li>
+              <li>DIRECTORY</li>
+              <li>PROFILES</li>
+              <li>HASHTAGS</li>
+              <li>LANGUAGE</li>
+              <br>
+              <li style="font-size:10px;"> <strong>© 2019 JOSEPH MUEMA</strong></li>
+            </ul>
+      
+          </div>
+      
+        </div>
+      
+      </div>
 </div>
 {% endblock %}
