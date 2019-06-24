@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^upload/$', views.pic_upload, name='pic_upload'),
     url(r'^image/(?P<image_id>\d+)', views.solo_image, name='solo_image'),
     url(r'^accounts/edit/', views.profile_edit, name='profile_edit'),
+    
 ]
 
 if settings.DEBUG:
